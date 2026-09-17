@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('My Orders', null)}"></head>
+
+<body class="orders-page">
+
+<h2 class="mb-4">My Orders</h2>
+
+<div th:each="o : ${orders}" class="order-card">
+    <img class="img" th:src="${o.imageUrl}" alt="Product">
+    <div class="flex-grow-1">
+        <h5 th:text="${o.productName}"></h5>
+        <p>₹<span th:text="${o.price}"></span> × <span th:text="${o.quantity}"></span></p>
+        <small>📅 <span th:text="${o.orderDate}"></span></small>
+        <br>
+        <span class="status"
+              th:classappend="${o.status == 'CANCELLED' ? 'cancelled' : (o.status == 'DELIVERED' ? 'delivered' : 'pending')}"
+              th:text="${o.status}"></span>
+    </div>
+    <div class="actions">
+        <a th:href="@{/order/{id}(id=${o.id})}" class="btn btn-primary btn-sm">View</a>
+        <a th:href="@{/order/edit/{id}(id=${o.id})}" class="btn btn-warning btn-sm">Edit Address</a>
+        <a th:href="@{/order/cancel/{id}(id=${o.id})}" class="btn btn-danger btn-sm">Cancel</a>
+    </div>
+</div>
+
+</body>
+</html>

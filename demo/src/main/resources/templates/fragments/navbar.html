@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="navbar(activePage)" class="navbar navbar-expand-lg premium-navbar navbar-dark fixed-top" id="mainNavbar">
+    <div class="container">
+        <a class="navbar-brand premium-logo" href="/">
+            <i class="fas fa-store"></i> MyShop
+        </a>
+
+        <button class="navbar-toggler border-0 shadow-none" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${activePage == 'home'} ? 'active'" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${activePage == 'products'} ? 'active'" href="/products">Products</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:classappend="${activePage == 'dashboard'} ? 'active'" href="/dashboard">
+                        <i class="fas fa-user-shield me-1"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('USER')">
+                    <a class="nav-link" th:classappend="${activePage == 'user-dashboard'} ? 'active'" href="/user-dashboard">
+                        <i class="fas fa-user me-1"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${activePage == 'cart'} ? 'active'" href="/cart">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${activePage == 'checkout'} ? 'active'" href="/checkout">Checkout</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-3 flex-wrap">
+                <form class="d-flex premium-search" action="/search" method="get">
+                    <input class="form-control" type="search" name="keyword" placeholder="Search products">
+                    <button class="btn btn-search" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
+                <a sec:authorize="!isAuthenticated()" href="/login" class="btn btn-login">Login</a>
+
+                <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="d-inline">
+                    <button class="btn btn-logout" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,16 @@
+[build]
+  command = "powershell -ExecutionPolicy Bypass -File scripts/prepare-netlify.ps1"
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
