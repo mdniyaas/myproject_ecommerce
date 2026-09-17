@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="sidebar" class="sidebar">
+    <h2>Admin Panel</h2>
+    <a href="/"><i class="fas fa-home"></i> Home</a>
+    <a href="/dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a>
+
+    <a data-bs-toggle="collapse" href="#productMenu" role="button">
+        <i class="fas fa-box"></i> Products
+        <i class="fas fa-chevron-down float-end mt-1"></i>
+    </a>
+    <div class="collapse" id="productMenu">
+        <a href="/products" style="padding-left:50px;"><i class="fas fa-list"></i> View Products</a>
+        <a href="/add-product" style="padding-left:50px;"><i class="fas fa-plus-circle"></i> Add Product</a>
+    </div>
+
+    <a href="/cart"><i class="fas fa-shopping-cart"></i> Cart</a>
+    <a href="/checkout"><i class="fas fa-credit-card"></i> Checkout</a>
+
+    <a data-bs-toggle="collapse" href="#employeeMenu" role="button">
+        <i class="fas fa-users"></i> Employees
+        <i class="fas fa-chevron-down float-end mt-1"></i>
+    </a>
+    <div class="collapse" id="employeeMenu">
+        <a href="/employees" style="padding-left:50px;"><i class="fas fa-list"></i> View Employees</a>
+        <a href="/add-employee" style="padding-left:50px;"><i class="fas fa-user-plus"></i> Add Employee</a>
+    </div>
+
+    <div class="sidebar-footer">
+        <hr>
+        <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <hr>
+    </div>
+</div>
+</body>
+</html>

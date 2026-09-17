@@ -4,8 +4,6 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.UserRepository;
 
-import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,19 +19,10 @@ public class UserDashboardController {
     OrderRepository orderRepository;
 
     @GetMapping("/user-dashboard")
-    public String dashboard(Model model, Principal principal) {
+    public String dashboard(Model model) {
 
-        String username = principal != null ? principal.getName() : "user";
-
-        User user = userRepository.findByUsername(username);
-
-        if (user == null) {
-            user = new User();
-            user.setUsername(username);
-            user.setEmail(username + "@example.com");
-            user.setProfileImage("https://i.pravatar.cc/150");
-            userRepository.save(user);
-        }
+        User user =
+                userRepository.findById(1L).orElse(null);
 
         model.addAttribute("user", user);
 
